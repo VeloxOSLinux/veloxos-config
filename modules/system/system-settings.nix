@@ -27,7 +27,7 @@ in {
   config = {
     # Bootloader (Bedingt durch die Option)
     boot.loader.systemd-boot.enable = cfg.bootloader.systemd-boot;
-    boot.loader.efi.canTouchEfiVariables = cfg.bootloader.systemd-boot;
+    boot.loader.efi.canTouchEfiVariables = true;
 
     # Performance & Gaming Kernel (Zen-Kernel)
     boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -49,5 +49,10 @@ in {
 
     # Unfreie Software erlauben (Wichtig für Steam/Nvidia)
     nixpkgs.config.allowUnfree = true;
+
+    # Schriftart für Kitty
+    fonts.packages = with pkgs; [
+      nerd-fonts.fira-code
+    ];
   };
 }
