@@ -3,8 +3,10 @@
 {
   imports = [
     ./hardware/zram.nix
-    ./gaming.nix
     ./system/gc.nix
+    ./system/system-settings.nix
+    ./gaming.nix
+    ./packages/tools.nix
   ];
 
   config = {
