@@ -4,6 +4,7 @@
   imports = [
     ./hardware/zram.nix
     ./gaming.nix
+    ./system/gc.nix
   ];
 
   config = {
