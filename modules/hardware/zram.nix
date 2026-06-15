@@ -11,20 +11,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Offizielle NixOS ZRAM Option triggern
     zramSwap = {
       enable = true;
       algorithm = "zstd";
       memoryPercent = 25; 
     };
 
-    # Systemd OOM-Killer (schützt vor harten System-Freezes bei RAM-Mangel)
     systemd.oomd = {
       enable = true;
       enableUserSlices = true;
     };
 
-    # Kernel-Optimierungen für aggressiveres, aber verlustfreies ZRAM-Swapping
     boot.kernel.sysctl = {
       "vm.swappiness" = 180; 
       "vm.watermark_boost_factor" = 0;
