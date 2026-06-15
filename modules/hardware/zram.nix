@@ -7,6 +7,13 @@ in {
   options = {
     veloxos.services.zram = {
       enable = mkEnableOption "Optimiertes VeloxOS ZRAM-Swap für Gaming und Dev-Workloads";
+      
+      # Optionale Erweiterung: Speicherprozent konfigurierbar machen
+      memoryPercent = mkOption {
+        type = types.int;
+        default = 50;
+        description = "Prozentualer Anteil des RAMs, der maximal als komprimierter zRAM-Swap genutzt werden darf.";
+      };
     };
   };
 
@@ -14,7 +21,7 @@ in {
     zramSwap = {
       enable = true;
       algorithm = "zstd";
-      memoryPercent = 25; 
+      memoryPercent = cfg.memoryPercent;
     };
 
     systemd.oomd = {
