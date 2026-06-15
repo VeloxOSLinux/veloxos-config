@@ -12,11 +12,9 @@
       
       imports = [
         ./home/core.nix
-        ./home/git.nix
         ./home/theme.nix
         ./home/niri.nix
         ./home/kitty.nix
-        ./home/vscode.nix
       ];
 
       # Definiert die State-Version für den Home-Manager im User-Space
