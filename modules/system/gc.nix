@@ -7,7 +7,7 @@
   # 2. Die Speicherplatz-Notbremse (wird nur aktiv, wenn es eng wird)
   nix.settings = {
     min-free = 15 * 1024 * 1024 * 1024; # 15 GB in Bytes
-    max-free = 30 * 1024 * 1024 * 1024; # Setzt ein extrem hohes Limit (1 TB)
+    max-free = 30 * 1024 * 1024 * 1024; # 30 GB in Bytes
   };
 
   # 3. Der wöchentliche Sicherheits-Standard-Lauf
