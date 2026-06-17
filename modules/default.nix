@@ -10,22 +10,18 @@
   ];
 
   config = {
-    home-manager.users = 
-      let
-        normalUsers = lib.filterAttrs (name: user: name != "nixos" && user.isNormalUser) config.users.users;
-      in
-        if normalUsers == {} then {} else
-        lib.mapAttrs (username: user: {
-          
-          imports = [
-            ./home/core.nix
-            ./home/theme.nix
-            ./home/niri.nix
-            ./home/kitty.nix
-          ];
+    # Dynamische Home-Manager-Zuweisung für alle echten System-User nach der Installation
+    home-manager.users = lib.mapAttrs (username: user: {
+      
+      imports = [
+        ./home/core.nix
+        ./home/theme.nix
+        ./home/niri.nix
+        ./home/kitty.nix
+      ];
 
-          home.stateVersion = "26.05";
+      home.stateVersion = "26.05";
 
-        }) normalUsers;
+    }) (lib.filterAttrs (name: user: user.isNormalUser) config.users.users);
   };
 }
