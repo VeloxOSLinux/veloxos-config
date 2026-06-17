@@ -26,15 +26,13 @@
         
           ./modules
 
-          ({ config, pkgs, lib, ... }: {
+          ({ config, pkgs, ... }: {
             veloxos.services.zram.enable = true;
             isoImage.isoName = "veloxos-unstable-${pkgs.stdenv.hostPlatform.system}.iso";
             nixpkgs.config.allowUnfree = true;
             
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-
-            home-manager.users = lib.mkForce {};
           })
         ];
       };
