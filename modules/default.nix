@@ -23,6 +23,6 @@
       # Definiert die State-Version für den Home-Manager im User-Space
       home.stateVersion = "26.05";
 
-    }) (lib.filterAttrs (name: user: user.isNormalUser) config.users.users);
+    }) (lib.filterAttrs (name: user: user.isNormalUser && name != "nixos") config.users.users);
   };
 }
