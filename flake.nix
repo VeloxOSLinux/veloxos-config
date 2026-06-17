@@ -20,19 +20,14 @@
         specialArgs = { inherit inputs; };
         
         modules = [
+          # Das offizielle grafische Live-Image-Modul von NixOS (bringt Gnome/Calamares)
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
-          
-          home-manager.nixosModules.home-manager
-        
-          ./modules
 
           ({ config, pkgs, ... }: {
-            veloxos.services.zram.enable = true;
+            zramSwap.enable = true; 
+            
             isoImage.isoName = "veloxos-unstable-${pkgs.stdenv.hostPlatform.system}.iso";
             nixpkgs.config.allowUnfree = true;
-            
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
           })
         ];
       };
