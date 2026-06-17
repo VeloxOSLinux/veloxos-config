@@ -17,7 +17,6 @@
     nixosConfigurations = {
       velox-iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        # Wir übergeben 'inputs' an die Module, falls sie diese brauchen
         specialArgs = { inherit inputs; };
         
         modules = [
@@ -27,13 +26,15 @@
         
           ./modules
 
-          ({ config, pkgs, ... }: {
+          ({ config, pkgs, lib, ... }: {
             veloxos.services.zram.enable = true;
             isoImage.isoName = "veloxos-unstable-${pkgs.stdenv.hostPlatform.system}.iso";
             nixpkgs.config.allowUnfree = true;
             
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+
+            home-manager.users = lib.mkForce {};
           })
         ];
       };
