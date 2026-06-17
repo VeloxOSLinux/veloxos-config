@@ -10,18 +10,22 @@
   ];
 
   config = {
-    # Dynamische Home-Manager-Zuweisung – absolut schleifenfest!
-    home-manager.users = lib.mapAttrs (username: user: {
-      
-      imports = [
-        ./home/core.nix
-        ./home/theme.nix
-        ./home/niri.nix
-        ./home/kitty.nix
-      ];
+    home-manager.users = 
+      let
+        normalUsers = lib.filterAttrs (name: user: name != "nixos" && user.isNormalUser) config.users.users;
+      in
+        if normalUsers == {} then {} else
+        lib.mapAttrs (username: user: {
+          
+          imports = [
+            ./home/core.nix
+            ./home/theme.nix
+            ./home/niri.nix
+            ./home/kitty.nix
+          ];
 
-      home.stateVersion = "26.05";
+          home.stateVersion = "26.05";
 
-    }) (lib.filterAttrs (name: user: name != "nixos" && user.isNormalUser) config.users.users);
+        }) normalUsers;
   };
 }
