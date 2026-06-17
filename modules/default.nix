@@ -10,7 +10,7 @@
   ];
 
   config = {
-    # Dynamische Home-Manager-Zuweisung für alle echten System-User
+    # Dynamische Home-Manager-Zuweisung – absolut schleifenfest!
     home-manager.users = lib.mapAttrs (username: user: {
       
       imports = [
@@ -20,9 +20,8 @@
         ./home/kitty.nix
       ];
 
-      # Definiert die State-Version für den Home-Manager im User-Space
       home.stateVersion = "26.05";
 
-    }) (lib.filterAttrs (name: user: user.isNormalUser && name != "nixos") config.users.users);
+    }) (lib.filterAttrs (name: user: name != "nixos" && user.isNormalUser) config.users.users);
   };
 }
